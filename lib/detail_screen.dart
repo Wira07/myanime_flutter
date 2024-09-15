@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:myanime/model/naruto_place.dart'; // Ubah import ini sesuai dengan model karakter Naruto
+import 'package:myanime/model/naruto_place.dart';
 
 var informationTextStyle = const TextStyle(fontFamily: 'Oxygen');
 
