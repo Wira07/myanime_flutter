@@ -2,56 +2,45 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:myanime/model/naruto_place.dart'; // Ubah import ini sesuai dengan model karakter Naruto
 
-
+// Style untuk teks
 var informationTextStyle = const TextStyle(fontFamily: 'Oxygen');
 
+// DetailScreen mengarahkan ke DetailMobilePage atau DetailWebPage
 class DetailScreen extends StatelessWidget {
-  final NarutoPlace place;
+  final NarutoPlace place; // Gunakan tipe data yang sesuai dengan model
 
   const DetailScreen({Key? key, required this.place}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(place.name),
-        backgroundColor: Colors.blue, // Warna biru untuk AppBar
-        foregroundColor: Colors.white, // Warna putih untuk teks
-      ),
-      body: Column(
-        children: [
-          Image.asset(place.imageAsset),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(place.description),
-          ),
-          // Tambahkan widget lainnya sesuai kebutuhan
-        ],
-      ),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth > 800) {
+          return DetailWebPage(place: place);
+        } else {
+          return DetailMobilePage(place: place);
+        }
+      },
     );
   }
 }
 
+// Halaman detail untuk tampilan mobile
 class DetailMobilePage extends StatelessWidget {
-  final NarutoPlace character;
+  final NarutoPlace place; // Gunakan tipe data yang sesuai dengan model
 
-  const DetailMobilePage({Key? key, required this.character}) : super(key: key);
+  const DetailMobilePage({Key? key, required this.place}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(character.name),
-        backgroundColor: Colors.blue, // Warna biru untuk AppBar
-        foregroundColor: Colors.white, // Warna putih untuk teks
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Image.asset(character.imageAsset),
+                Image.asset(place.imageAsset),
                 SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -80,7 +69,7 @@ class DetailMobilePage extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 16.0),
               child: Text(
-                character.name,
+                place.name,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 30.0,
@@ -98,7 +87,7 @@ class DetailMobilePage extends StatelessWidget {
                       const Icon(Icons.location_on),
                       const SizedBox(height: 8.0),
                       Text(
-                        character.location,
+                        place.location,
                         style: informationTextStyle,
                       ),
                     ],
@@ -108,17 +97,7 @@ class DetailMobilePage extends StatelessWidget {
                       const Icon(Icons.star),
                       const SizedBox(height: 8.0),
                       Text(
-                        character.specialty,
-                        style: informationTextStyle,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      const Icon(Icons.star_border),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        character.rank,
+                        place.rank,
                         style: informationTextStyle,
                       ),
                     ],
@@ -129,7 +108,7 @@ class DetailMobilePage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                character.description,
+                place.description,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 16.0,
@@ -141,7 +120,7 @@ class DetailMobilePage extends StatelessWidget {
               height: 150,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: character.imageUrls.map((url) {
+                children: place.imageUrls.map((url) {
                   return Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
@@ -159,10 +138,11 @@ class DetailMobilePage extends StatelessWidget {
   }
 }
 
+// Halaman detail untuk tampilan web
 class DetailWebPage extends StatefulWidget {
-  final NarutoPlace character;
+  final NarutoPlace place; // Gunakan tipe data yang sesuai dengan model
 
-  const DetailWebPage({Key? key, required this.character}) : super(key: key);
+  const DetailWebPage({Key? key, required this.place}) : super(key: key);
 
   @override
   _DetailWebPageState createState() => _DetailWebPageState();
@@ -176,11 +156,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: kIsWeb ? null : AppBar(
-        title: Text(widget.character.name),
-        backgroundColor: Colors.blue, // Warna biru untuk AppBar
-        foregroundColor: Colors.white, // Warna putih untuk teks
-      ),
+      appBar: kIsWeb ? null : AppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 16,
@@ -193,7 +169,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const Text(
-                  'Karakter Naruto',
+                  'Detail Karakter',
                   style: TextStyle(
                     fontFamily: 'Staatliches',
                     fontSize: 32,
@@ -207,7 +183,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
                       child: Column(
                         children: [
                           ClipRRect(
-                            child: Image.asset(widget.character.imageAsset),
+                            child: Image.asset(widget.place.imageAsset),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           const SizedBox(height: 16),
@@ -219,7 +195,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
                               child: ListView(
                                 controller: _scrollController,
                                 scrollDirection: Axis.horizontal,
-                                children: widget.character.imageUrls.map((url) {
+                                children: widget.place.imageUrls.map((url) {
                                   return Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: ClipRRect(
@@ -243,7 +219,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               Text(
-                                widget.character.name,
+                                widget.place.name,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 30.0,
@@ -259,7 +235,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
                                       const Icon(Icons.location_on),
                                       const SizedBox(width: 8.0),
                                       Text(
-                                        widget.character.location,
+                                        widget.place.location,
                                         style: informationTextStyle,
                                       ),
                                     ],
@@ -272,27 +248,16 @@ class _DetailWebPageState extends State<DetailWebPage> {
                                   const Icon(Icons.star),
                                   const SizedBox(width: 8.0),
                                   Text(
-                                    widget.character.specialty,
+                                    widget.place.rank,
                                     style: informationTextStyle,
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 8.0),
-                              Row(
-                                children: <Widget>[
-                                  const Icon(Icons.star_border),
-                                  const SizedBox(width: 8.0),
-                                  Text(
-                                    widget.character.rank,
-                                    style: informationTextStyle,
-                                  ),
-                                ],
-                              ),
                               Container(
-                                padding:
-                                const EdgeInsets.symmetric(vertical: 16.0),
+                                padding: const EdgeInsets.symmetric(vertical: 16.0),
                                 child: Text(
-                                  widget.character.description,
+                                  widget.place.description,
                                   textAlign: TextAlign.justify,
                                   style: const TextStyle(
                                     fontSize: 16.0,
@@ -322,6 +287,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
   }
 }
 
+// Tombol favorit
 class FavoriteButton extends StatefulWidget {
   const FavoriteButton({Key? key}) : super(key: key);
 
