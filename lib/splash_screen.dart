@@ -39,7 +39,7 @@ class SplashScreen extends StatelessWidget {
           ),
         ],
       ),
-      nextScreen: const FirstScreen(), // Setelah SplashScreen, menuju FirstScreen
+      nextScreen: const HomeScreen(), // Setelah SplashScreen, menuju FirstScreen
       splashIconSize: 400,
       backgroundColor: Colors.white,
     );

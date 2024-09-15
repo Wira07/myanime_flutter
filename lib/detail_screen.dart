@@ -1,24 +1,33 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:myanime/model/naruto_place.dart';
+import 'package:myanime/model/naruto_place.dart'; // Ubah import ini sesuai dengan model karakter Naruto
+
 
 var informationTextStyle = const TextStyle(fontFamily: 'Oxygen');
 
 class DetailScreen extends StatelessWidget {
-  final NarutoPlace character;
+  final NarutoPlace place;
 
-  const DetailScreen({Key? key, required this.character}) : super(key: key);
+  const DetailScreen({Key? key, required this.place}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        if (constraints.maxWidth > 800) {
-          return DetailWebPage(character: character);
-        } else {
-          return DetailMobilePage(character: character);
-        }
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(place.name),
+        backgroundColor: Colors.blue, // Warna biru untuk AppBar
+        foregroundColor: Colors.white, // Warna putih untuk teks
+      ),
+      body: Column(
+        children: [
+          Image.asset(place.imageAsset),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(place.description),
+          ),
+          // Tambahkan widget lainnya sesuai kebutuhan
+        ],
+      ),
     );
   }
 }
@@ -31,6 +40,11 @@ class DetailMobilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(character.name),
+        backgroundColor: Colors.blue, // Warna biru untuk AppBar
+        foregroundColor: Colors.white, // Warna putih untuk teks
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -162,7 +176,11 @@ class _DetailWebPageState extends State<DetailWebPage> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: kIsWeb ? null : AppBar(),
+      appBar: kIsWeb ? null : AppBar(
+        title: Text(widget.character.name),
+        backgroundColor: Colors.blue, // Warna biru untuk AppBar
+        foregroundColor: Colors.white, // Warna putih untuk teks
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 16,
@@ -234,7 +252,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: <Widget>[
@@ -272,7 +290,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
                               ),
                               Container(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 16.0),
+                                const EdgeInsets.symmetric(vertical: 16.0),
                                 child: Text(
                                   widget.character.description,
                                   textAlign: TextAlign.justify,

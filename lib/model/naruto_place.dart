@@ -89,7 +89,7 @@ var narutoPlaceList = [
     specialty: 'Adamantine Sealing Chains',
     jutsu: 'Four Symbols Seal, Chakra Chains',
     rank: 'Kunoichi',
-    imageAsset: 'images/kushina.jpg',
+    imageAsset: 'images/khusina.jpg',
     imageUrls: [
       'https://i.pinimg.com/564x/31/54/c3/3154c3db9f37f63d3bee2e36f896710a.jpg',
       'https://i.pinimg.com/736x/1d/01/82/1d0182614603152bccb01112f641a75b.jpg',
