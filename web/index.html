@@ -24,10 +24,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Naruto App">
-  <link rel="apple-touch-icon" href="icons/naruto-icon-192.png">
+  <link rel="apple-touch-icon" href="images/wira.jpeg">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="icons/naruto-favicon.png"/>
+  <link rel="icon" type="image/png" href="images/wira.jpeg"/>
 
   <title>Naruto App</title>
   <link rel="manifest" href="manifest.json">
@@ -55,6 +55,44 @@
     .content {
       padding: 20px;
     }
+    .profile {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .profile img {
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+    }
+    .profile h2 {
+      margin: 10px 0;
+    }
+    .profile p {
+      font-size: 18px;
+    }
+    .social-media {
+      margin-top: 20px;
+    }
+    .social-media a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 16px;
+      margin: 0 10px;
+    }
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+    }
+    .nav-bar a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -62,9 +100,35 @@
   <h1>Welcome to Naruto App</h1>
 </header>
 
+<!-- Profile Section -->
+<div class="profile">
+  <img src="images/wira.jpeg" alt="Profile Picture">
+  <h2>Wira Sukma Saputra</h2>
+  <p>Flutter Developer</p>
+  <p>I am a passionate Flutter developer with experience in creating cross-platform mobile applications. My goal is to build intuitive and engaging user experiences. I love exploring new technologies and working on innovative projects.</p>
+  <div class="social-media">
+    <a href="https://www.linkedin.com/in/wira-sukma-saputra/" target="_blank">
+      <img src="images/linkedin.png" alt="LinkedIn" style="width: 30px; height: 30px;">
+    </a>
+    <a href="https://github.com/Wira07?tab=repositories" target="_blank">
+      <img src="images/github.png" alt="GitHub" style="width: 30px; height: 30px;">
+    </a>
+    <a href="mailto:wiralodrasaputra07@gmail.com">
+      <img src="images/email.png" alt="Email" style="width: 30px; height: 30px;">
+    </a>
+  </div>
+</div>
+
 <!-- Main content of the page -->
 <div class="content">
   <p>Explore the world of Naruto with exciting content and features.</p>
+</div>
+
+<!-- Bottom Navigation Bar -->
+<div class="nav-bar">
+  <a href="#home">Home</a>
+  <a href="#profile">Profile</a>
+  <a href="#contact">Contact</a>
 </div>
 
 <!-- This script installs service_worker.js to provide PWA functionality to

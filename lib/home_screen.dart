@@ -1,9 +1,30 @@
 import 'package:flutter/material.dart';
 import 'detail_screen.dart';
 import 'model/naruto_place.dart';
+import 'profile_screen.dart'; // Import ProfileScreen
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfileScreen()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +46,20 @@ class HomeScreen extends StatelessWidget {
                 return const CharacterGrid(gridCount: 6);
               }
             },
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
           ),
         );
       },
