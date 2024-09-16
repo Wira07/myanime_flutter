@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:myanime/model/naruto_place.dart'; // Ubah import ini sesuai dengan model karakter Naruto
+import 'package:myanime/model/naruto_place.dart';
 
 // Style untuk teks
 var informationTextStyle = const TextStyle(fontFamily: 'Oxygen');
 
 // DetailScreen mengarahkan ke DetailMobilePage atau DetailWebPage
 class DetailScreen extends StatelessWidget {
-  final NarutoPlace place; // Gunakan tipe data yang sesuai dengan model
+  final NarutoPlace place;
 
   const DetailScreen({Key? key, required this.place}) : super(key: key);
 
@@ -27,7 +27,7 @@ class DetailScreen extends StatelessWidget {
 
 // Halaman detail untuk tampilan mobile
 class DetailMobilePage extends StatelessWidget {
-  final NarutoPlace place; // Gunakan tipe data yang sesuai dengan model
+  final NarutoPlace place;
 
   const DetailMobilePage({Key? key, required this.place}) : super(key: key);
 
@@ -140,7 +140,7 @@ class DetailMobilePage extends StatelessWidget {
 
 // Halaman detail untuk tampilan web
 class DetailWebPage extends StatefulWidget {
-  final NarutoPlace place; // Gunakan tipe data yang sesuai dengan model
+  final NarutoPlace place;
 
   const DetailWebPage({Key? key, required this.place}) : super(key: key);
 
@@ -183,8 +183,8 @@ class _DetailWebPageState extends State<DetailWebPage> {
                       child: Column(
                         children: [
                           ClipRRect(
-                            child: Image.asset(widget.place.imageAsset),
                             borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(widget.place.imageAsset),
                           ),
                           const SizedBox(height: 16),
                           Scrollbar(

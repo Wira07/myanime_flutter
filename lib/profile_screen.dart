@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'home_screen.dart'; // Import your HomeScreen here
+import 'home_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -66,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 10),
             const Text(
-              'Flutter Developer',
+              'Programmer',
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.grey,
@@ -74,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 20),
             const Text(
-              'I am a passionate Flutter developer with experience in creating cross-platform mobile applications. My goal is to build intuitive and engaging user experiences. I love exploring new technologies and working on innovative projects.',
+              'Wira Sukma Saputra adalah seorang pengembang aplikasi mobile yang sedang belajar Flutter dan Android development. Ia memiliki pengalaman dalam membuat aplikasi lintas platform dan berfokus pada desain antarmuka pengguna (UI/UX) yang menarik dan intuitif. ',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,

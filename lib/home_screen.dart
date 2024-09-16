@@ -12,6 +12,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  TextEditingController searchController = TextEditingController();
+  List<NarutoPlace> filteredList = narutoPlaceList;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -26,6 +28,19 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _filterCharacters(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        filteredList = narutoPlaceList;
+      } else {
+        filteredList = narutoPlaceList
+            .where((place) =>
+            place.name.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -33,19 +48,43 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Naruto Characters'),
-            backgroundColor: Colors.blue, // Warna biru untuk AppBar
-            foregroundColor: Colors.white, // Warna putih untuk teks
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
           ),
-          body: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              if (constraints.maxWidth <= 600) {
-                return const CharacterList();
-              } else if (constraints.maxWidth <= 1200) {
-                return const CharacterGrid(gridCount: 4);
-              } else {
-                return const CharacterGrid(gridCount: 6);
-              }
-            },
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: searchController,
+                  decoration: const InputDecoration(
+                    labelText: 'Search Character',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                  onChanged: _filterCharacters,
+                ),
+              ),
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    if (constraints.maxWidth <= 600) {
+                      return CharacterList(filteredList: filteredList);
+                    } else if (constraints.maxWidth <= 1200) {
+                      return CharacterGrid(
+                        gridCount: 4,
+                        filteredList: filteredList,
+                      );
+                    } else {
+                      return CharacterGrid(
+                        gridCount: 6,
+                        filteredList: filteredList,
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
           ),
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
@@ -69,8 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class CharacterGrid extends StatelessWidget {
   final int gridCount;
+  final List<NarutoPlace> filteredList;
 
-  const CharacterGrid({Key? key, required this.gridCount}) : super(key: key);
+  const CharacterGrid({Key? key, required this.gridCount, required this.filteredList})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +121,7 @@ class CharacterGrid extends StatelessWidget {
         crossAxisCount: gridCount,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
-        children: narutoPlaceList.map((place) {
+        children: filteredList.map((place) {
           return InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -125,7 +166,9 @@ class CharacterGrid extends StatelessWidget {
 }
 
 class CharacterList extends StatelessWidget {
-  const CharacterList({Key? key}) : super(key: key);
+  final List<NarutoPlace> filteredList;
+
+  const CharacterList({Key? key, required this.filteredList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +176,7 @@ class CharacterList extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          final NarutoPlace place = narutoPlaceList[index];
+          final NarutoPlace place = filteredList[index];
           return InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -172,7 +215,7 @@ class CharacterList extends StatelessWidget {
             ),
           );
         },
-        itemCount: narutoPlaceList.length,
+        itemCount: filteredList.length,
       ),
     );
   }
