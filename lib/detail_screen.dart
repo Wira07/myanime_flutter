@@ -34,13 +34,18 @@ class DetailMobilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: SingleChildScrollView( // Menghindari overflow dengan scroll
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Image.asset(place.imageAsset),
+                Image.asset(
+                  place.imageAsset,
+                  fit: BoxFit.cover, // Mengatur gambar agar tidak overflow
+                  width: double.infinity, // Sesuaikan lebar gambar
+                  height: 300, // Sesuaikan tinggi gambar agar pas
+                ),
                 SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -125,7 +130,10 @@ class DetailMobilePage extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(url),
+                      child: Image.network(
+                        url,
+                        fit: BoxFit.cover, // Menambahkan BoxFit agar gambar tidak overflow
+                      ),
                     ),
                   );
                 }).toList(),
@@ -200,7 +208,10 @@ class _DetailWebPageState extends State<DetailWebPage> {
                                     padding: const EdgeInsets.all(4.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(url),
+                                      child: Image.network(
+                                        url,
+                                        fit: BoxFit.cover, // Menambahkan BoxFit di web juga
+                                      ),
                                     ),
                                   );
                                 }).toList(),
@@ -227,8 +238,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
                                 ),
                               ),
                               Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: <Widget>[
