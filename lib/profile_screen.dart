@@ -45,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    'Mahasiswa Universitas Kuningan',
+                    'Mahasiswa Universitas Kuningan Indonesia',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,
