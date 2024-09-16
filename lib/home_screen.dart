@@ -114,43 +114,54 @@ class CharacterGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.all(16.0),
       child: GridView.count(
         crossAxisCount: gridCount,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
         children: filteredList.map((place) {
-          return InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return DetailScreen(place: place);
-              }));
-            },
-            child: Card(
+          return Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return DetailScreen(place: place);
+                }));
+              },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Expanded(
+                  ClipRRect(
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
                     child: Image.asset(
                       place.imageAsset,
                       fit: BoxFit.cover,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(
-                      place.name,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      height: 150,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
-                    child: Text(
-                      place.location,
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          place.name,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          place.location,
+                          style: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -175,27 +186,30 @@ class CharacterList extends StatelessWidget {
       child: ListView.builder(
         itemBuilder: (context, index) {
           final NarutoPlace place = filteredList[index];
-          return InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return DetailScreen(place: place);
-              }));
-            },
-            child: Card(
+          return Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return DetailScreen(place: place);
+                }));
+              },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Expanded(
-                    flex: 1,
+                  ClipRRect(
+                    borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
                     child: Image.asset(
                       place.imageAsset,
                       fit: BoxFit.cover,
-                      width: 100, // Set a fixed width for the image
-                      height: 100, // Set a fixed height for the image
+                      width: 100,
+                      height: 100,
                     ),
                   ),
                   Expanded(
-                    flex: 2,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -203,12 +217,18 @@ class CharacterList extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             place.name,
-                            style: const TextStyle(fontSize: 16.0),
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          const SizedBox(height: 4),
+                          Text(
+                            place.location,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                            ),
                           ),
-                          Text(place.location),
                         ],
                       ),
                     ),
