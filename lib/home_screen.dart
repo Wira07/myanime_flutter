@@ -34,8 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
         filteredList = narutoPlaceList;
       } else {
         filteredList = narutoPlaceList
-            .where((place) =>
-            place.name.toLowerCase().contains(query.toLowerCase()))
+            .where((place) => place.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
       }
     });
@@ -110,8 +109,7 @@ class CharacterGrid extends StatelessWidget {
   final int gridCount;
   final List<NarutoPlace> filteredList;
 
-  const CharacterGrid({Key? key, required this.gridCount, required this.filteredList})
-      : super(key: key);
+  const CharacterGrid({Key? key, required this.gridCount, required this.filteredList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +187,12 @@ class CharacterList extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: Image.asset(place.imageAsset),
+                    child: Image.asset(
+                      place.imageAsset,
+                      fit: BoxFit.cover,
+                      width: 100, // Set a fixed width for the image
+                      height: 100, // Set a fixed height for the image
+                    ),
                   ),
                   Expanded(
                     flex: 2,

@@ -34,7 +34,7 @@ class DetailMobilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView( // Menghindari overflow dengan scroll
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -42,9 +42,9 @@ class DetailMobilePage extends StatelessWidget {
               children: <Widget>[
                 Image.asset(
                   place.imageAsset,
-                  fit: BoxFit.cover, // Mengatur gambar agar tidak overflow
-                  width: double.infinity, // Sesuaikan lebar gambar
-                  height: 300, // Sesuaikan tinggi gambar agar pas
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 300,
                 ),
                 SafeArea(
                   child: Padding(
@@ -132,7 +132,9 @@ class DetailMobilePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
                         url,
-                        fit: BoxFit.cover, // Menambahkan BoxFit agar gambar tidak overflow
+                        width: 150,
+                        height: 150,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   );
@@ -192,7 +194,12 @@ class _DetailWebPageState extends State<DetailWebPage> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.asset(widget.place.imageAsset),
+                            child: Image.asset(
+                              widget.place.imageAsset,
+                              width: double.infinity,
+                              height: 300,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                           const SizedBox(height: 16),
                           Scrollbar(
@@ -210,7 +217,9 @@ class _DetailWebPageState extends State<DetailWebPage> {
                                       borderRadius: BorderRadius.circular(10),
                                       child: Image.network(
                                         url,
-                                        fit: BoxFit.cover, // Menambahkan BoxFit di web juga
+                                        width: 150,
+                                        height: 150,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   );

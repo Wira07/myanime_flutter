@@ -1,34 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'home_screen.dart';
+import 'home_screen.dart'; // Make sure this import is correct for your project structure
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
-
-  @override
-  _ProfileScreenState createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  int _selectedIndex = 1; // Set initial index for ProfileScreen
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-        break;
-      case 1:
-      // Stay on ProfileScreen
-        break;
-    }
-  }
 
   Future<void> _launchURL(String url) async {
     if (await canLaunch(url)) {
@@ -46,79 +21,73 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white, // Set the text color to white
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CircleAvatar(
-              radius: 80,
-              backgroundImage: AssetImage('images/wira.jpeg'),
-              backgroundColor: Colors.grey.shade200,
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Wira Sukma Saputra',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
+            Container(
+              color: Colors.blue,
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: Column(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 60,
+                    backgroundImage: AssetImage('images/wira.jpeg'),
+                    backgroundColor: Colors.grey.shade200,
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Wira Sukma Saputra',
+                    style: TextStyle(
+                      fontSize: 27,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    'Mahasiswa Universitas Kuningan',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _buildStatCard('1.284', 'followers'),
+                      const SizedBox(width: 20),
+                      _buildStatCard('1008', 'following'),
+                    ],
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 10),
-            const Text(
-              'Programmer',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.grey,
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _buildContactInfo('Email', 'wiralodrasaputra07@gmail.com', 'mailto:wiralodrasaputra07@gmail.com'),
+                  _buildContactInfo('WhatsApp', '+6281219195308', 'https://wa.me/6281219195308'),
+                  _buildContactInfo('Instagram', 'https://www.instagram.com/jawira_12', 'https://www.instagram.com/jawira_12'),
+                  _buildContactInfo('Github', 'https://github.com/Wira07', 'https://github.com/Wira07'),
+                ],
               ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Wira Sukma Saputra adalah seorang pengembang aplikasi mobile yang sedang belajar Flutter dan Android development. Ia memiliki pengalaman dalam membuat aplikasi lintas platform dan berfokus pada desain antarmuka pengguna (UI/UX) yang menarik dan intuitif. ',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black54,
-              ),
-            ),
-            const SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: IconButton(
-                    icon: Image.asset('images/linkedin.png'),
-                    onPressed: () => _launchURL('https://www.linkedin.com/in/wira-sukma-saputra/'),
-                  ),
-                ),
-                const SizedBox(width: 20),
-                SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: IconButton(
-                    icon: Image.asset('images/github.png'),
-                    onPressed: () => _launchURL('https://github.com/Wira07?tab=repositories'),
-                  ),
-                ),
-                const SizedBox(width: 20),
-                SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: IconButton(
-                    icon: Image.asset('images/email.png'),
-                    onPressed: () => _launchURL('mailto:wiralodrasaputra07@gmail.com'),
-                  ),
-                ),
-              ],
             ),
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        currentIndex: 1,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
+          }
+        },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -130,6 +99,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildStatCard(String number, String label) {
+    return Container(
+      width: 100,
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            number,
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          ),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 13,
+              color: Colors.white,
+              letterSpacing: 1.2,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContactInfo(String title, String value, String url) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 18,
+            color: Colors.blue,
+          ),
+        ),
+        TextButton(
+          onPressed: () => _launchURL(url),
+          child: Text(
+            value,
+            style: const TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        const SizedBox(height: 15),
+        Divider(color: Colors.grey.shade300),
+        const SizedBox(height: 15),
+      ],
     );
   }
 }
